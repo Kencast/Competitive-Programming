@@ -1,58 +1,89 @@
 #include <bits/stdc++.h>
 using namespace std;
-
-int cont;
-int p=1000000007, q=313;
+typedef unsigned long long ull;
 
 
+int otra(int n, int k){
+    int mn=n;
+    int num[n+1];
+    int msk[k+1]={};
+    for (int i = 1; i <=n; i++) //leer el input y guardar las frecuencias
+    {
+        cin>>num[i];
+        msk[num[i]]++;
+    }
+    
+    for (int i = 1; i <=k; i++)
+    { //sacar la minima frecuencia
+        mn=min(mn, msk[i]);
+        msk[i]=0;
+    }
+    if(!mn) return 0;
+    int len=k*mn, cont=0; //len es tamaño de la ventana
+    for (int i = 1; i <=len; i++)
+    { //calcular las frecuencias en la ventana
+        msk[num[i]]++;
+    }
+    for (int i = 1; i <=k; i++)
+    { //contar las frecuencias iguales a la mínima 
+        if(msk[i]==mn) cont++;
+    }
+    int i=1, j=len;
+    while(j<n){ //deslizar la ventana una posición
+        if(cont==k) return len;
+        if(msk[num[i]]==mn) cont--;
+        msk[num[i]]--;
+        if(msk[num[i]]==mn) cont++;
+        i++, j++;
+        if(msk[num[j]]==mn) cont--;
+        msk[num[j]]++;
+        if(msk[num[j]]==mn) cont++;
+    }
+    return (cont==k)? len:0;
+}
 
 int main(int argc, char const *argv[])
 {
     ios_base::sync_with_stdio(false); cin.tie(0);
-    int n, k, key=0;
+    int n, k, key=0, cont;
+    int q=13901;
     cin>>n>>k;
-    int num[n+1];
-    int msk[k+1];
-    int elv[k+1];
-    long int aux=0;
-    unordered_map<int, int> ind;
-    cont=k;
-    elv[0]=1;
-    for (int i = 1; i <=k; i++)
-    {
-        aux=(elv[i-1]*q)%p;
-        elv[i]=aux;
-        msk[i]=0;
+    if(k>600){ //solución 2, usando sliding window
+        cout<<otra(n, k)<<'\n';
+        return 0;
     }
+    int num[n+1];
+    int msk[k+1]={};
+    ull aux;
+    ull p=(1ull<<62)-1;
+    ull exp;
+    unordered_map<ull, int> ind;
+    ind[0]=0;
+    cont=k; //cant de frecuencias en cero
     for (int i = 1; i <=n; i++)
     {
         cin>>num[i];
-        if(!msk[num[i]]) cont--;
+        if(!msk[num[i]]) cont--; 
         msk[num[i]]++;
-        if(!cont){
-            aux=0;
+        if(!cont){ //si ya se completó un bloque sacar hash y resetearlo
+            aux=0, exp=1;
             for(int j=1; j<=k; j++){
                 msk[j]--;
                 if(!msk[j]) cont++;
-                aux+=elv[j]*msk[j], aux%=p;
+                aux+=exp*msk[j], aux%=p;
+                exp=(exp*q)%p;
 	        }
-            key=aux;
         }
-        else{
+        else{ //sacar solo el hash
             //aux=(key+elv[num[i]])%p, key=aux;
-            aux=0;
+            aux=0, exp=1;
             for(int j=1; j<=k; j++){
-                aux+=elv[j]*msk[j], aux%=p;
+                aux+=exp*msk[j], aux%=p;
+                exp=(exp*q)%p;
 	        }
-            key=aux;
         }
-        num[i]=key;
-        if(ind.find(key)==ind.end()) ind[key]=i;
-    }
-    key=0;
-    for (int i = 1; i <=n; i++)
-    {
-        key=max(key, i-ind[num[i]]);
+        if(ind.find(aux)==ind.end()) ind[aux]=i;
+        else key=max(key, i-ind[aux]);
     }
     cout<<key<<'\n';
     return 0;
