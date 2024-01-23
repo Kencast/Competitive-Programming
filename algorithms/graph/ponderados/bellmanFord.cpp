@@ -4,6 +4,8 @@ typedef pair<int, int> pii; //destine node and cost
 typedef list<pii> edge;
 const int Inf=1000000000;
 
+//Sigle-pair shortest path
+
 bool bellmanF(int n, vector<edge> adj, int s, int dist[]){
     for (int i = 0; i < n; i++)
     {
