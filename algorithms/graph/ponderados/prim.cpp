@@ -9,7 +9,7 @@ int prim(vii g[], int n){ //n= cantidad de nodos
     priority_queue<p, vector<p>, greater<p>> cola;
     p aux;
     int cost=0, aristas=-1;
-    cola.push({0, 1}); //first=nodo second=peso
+    cola.push({0, 0}); //first=peso second=nodo
     while(!cola.empty()){
         aux=cola.top(), cola.pop();
         if(!vis[aux.second]){
