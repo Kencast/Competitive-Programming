@@ -15,18 +15,24 @@ int main(){
     int t;
     cin>>t;
     while(t--){
-        int n, k;
-        cin>>n>>k;
-        int res[n+1]={};
-        int l=1, r=n;
-        uf(i, 1, k+1){
-            for(int j=i; j<=n; j+=k){
-                if(j&1) res[j]=l++;
-                else res[j]=r--; 
+        int n, res, p;
+        cin>>n;
+        res=n;
+        vector<int> num(n);
+        map<int, int> mapa;
+        uf(i, 0, n){
+            cin>>num[i];
+            mapa[num[i]]+=1;
+        }
+        for(int a: num){
+            n=mapa[a^INT32_MAX];
+            p=mapa[a];
+            if(p && n){
+                res-=min(n, p);
+                mapa[a]=mapa[a^INT32_MAX]=0;
             }
         }
-        uf(p, 1, n) ce(res[p]);
-        cln(res[n]);
-    }    
+        cln(res);
+    } 
     return 0;
 }
