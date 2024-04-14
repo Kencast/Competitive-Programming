@@ -10,17 +10,16 @@ typedef long long ll;
 typedef unsigned long long ull;
 typedef pair<int, int> pr;
 
-int t;
 
-int eulerTotient(int n){
-    int res=n, aux=n;
-    int r=2;
+ll eulerTotient(ll n){
+    ll res=n;
+    ll r=2;
     while(r*r<=n){
-        if(aux%r==0) res/=r, res*=r-1;
-        while(aux%r==0) aux/=r;
+        if(n%r==0) res/=r, res*=r-1;
+        while(n%r==0) n/=r;
         r+=1+(r!=2);
     }
-    return (res==n)? res-1:res;
+    return (n>1)? res-=res/n:res;
 }
 
 ll expo(ll base, ll n, ll mod){
@@ -31,12 +30,13 @@ ll expo(ll base, ll n, ll mod){
     return r;
 }
 
-int solve(int b, int m){
-    if(b==1) return 1LL;
-    return expo(b, solve(b-1, m), 208)+208;
+ll solve(ll b, ll m){
+    if(m==1) return 0;
+    if(b<3) return b%m;
+    if(b<5) return expo(b, pow(b-1, b-2), m);
+    ll tot=eulerTotient(m);
+    return expo(b, solve(b-1, tot)+tot, m);
 }
-
-// a^p=a^(b)
 
 
 int main(){
@@ -47,8 +47,7 @@ int main(){
         cln((0)); 
         return 0;
     }
-    t=eulerTotient(m);
-    cln(expo(b, solve(b-1, m), m));
+    cln(solve(b, m));
     return 0;
 }
 
