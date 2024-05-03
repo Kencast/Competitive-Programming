@@ -18,23 +18,26 @@ int main()
     cin >> t;
     while (t--)
     {
-        int n, num;
-        cin >> n;
-        int len[101] = {};
+        int n, m, k = 0;
+        cin >> n >> m;
+        string a, b;
+        cin >> a;
+        cin >> b;
+        int ult = 0;
         uf(i, 0, n)
         {
-            cin >> num;
-            len[num]++;
-        }
-        int cont = 0;
-        uf(i, 1, 101)
-        {
-            if (len[i] > 2)
+            while (ult < m)
             {
-                cont += len[i] / 3;
+                if (b[ult] == a[i])
+                {
+                    k++;
+                    ult++;
+                    break;
+                }
+                ult++;
             }
         }
-        cln(cont);
+        cln(k);
     }
     return 0;
 }

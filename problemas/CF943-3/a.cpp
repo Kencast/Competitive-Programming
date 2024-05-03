@@ -14,27 +14,22 @@ int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(0);
-    int t;
+    int n, t, y;
     cin >> t;
     while (t--)
     {
-        int n, num;
         cin >> n;
-        int len[101] = {};
-        uf(i, 0, n)
+        y = n - 1;
+        int res = 0;
+        int p, aux;
+        while (y)
         {
-            cin >> num;
-            len[num]++;
+            aux = gcd(y, n);
+            if (y + aux > res)
+                res = y + aux, p = y;
+            y--;
         }
-        int cont = 0;
-        uf(i, 1, 101)
-        {
-            if (len[i] > 2)
-            {
-                cont += len[i] / 3;
-            }
-        }
-        cln(cont);
+        cln(p);
     }
     return 0;
 }

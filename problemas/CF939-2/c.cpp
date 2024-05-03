@@ -14,27 +14,23 @@ int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(0);
-    int t;
+    int t, n;
     cin >> t;
     while (t--)
     {
-        int n, num;
         cin >> n;
-        int len[101] = {};
-        uf(i, 0, n)
+        ll sum = 0;
+        uf(i, 1, n + 1) sum += i * (2 * i - 1);
+        cout << sum << ' ' << 2 * n << '\n';
+        df(i, n, 1)
         {
-            cin >> num;
-            len[num]++;
+            cout << "1 " << i << ' ';
+            uf(i, 1, n + 1) ce(i);
+            ln;
+            cout << "2 " << i << ' ';
+            uf(i, 1, n + 1) ce(i);
+            ln;
         }
-        int cont = 0;
-        uf(i, 1, 101)
-        {
-            if (len[i] > 2)
-            {
-                cont += len[i] / 3;
-            }
-        }
-        cln(cont);
     }
     return 0;
 }
