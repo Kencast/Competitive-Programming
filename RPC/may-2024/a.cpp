@@ -14,10 +14,8 @@ int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(0);
-    int b, g, n;
-    cin >> b;
-    cin >> g;
-    cin >> n;
-    cln(min(g, n) - n + min(b, n) + 1);
+    int a, b;
+    cin >> a >> b;
+    (b - a <= a) ? cln("E") : cln("H");
     return 0;
 }

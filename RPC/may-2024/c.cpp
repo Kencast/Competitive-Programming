@@ -14,10 +14,18 @@ int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(0);
-    int b, g, n;
-    cin >> b;
-    cin >> g;
+    int n;
     cin >> n;
-    cln(min(g, n) - n + min(b, n) + 1);
+    int num[n];
+    uf(i, 0, n) cin >> num[i];
+    int cont[n];
+    cont[n - 1] = 1;
+    int may = 1;
+    df(i, n - 2, 0)
+    {
+        (num[i] < num[i + 1]) ? cont[i] = 1 + cont[i + 1] : cont[i] = 1;
+        may = max(may, cont[i]);
+    }
+    cln(may);
     return 0;
 }
