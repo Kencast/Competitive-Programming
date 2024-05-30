@@ -9,14 +9,15 @@ using namespace std;
 typedef long long ll;
 typedef unsigned long long ull;
 typedef pair<int, int> pr;
-typedef vector<int> vi;
-typedef vector<long long> vll;
+
+string s;
 
 int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(0);
-    int t;
+    int n;
+    cin >> n;
 
     return 0;
 }

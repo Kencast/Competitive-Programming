@@ -14,27 +14,26 @@ int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(0);
-    int t;
-    cin >> t;
-    while (t--)
+    ll c;
+    cin >> c;
+    int m;
+    cin >> m;
+    ll num[m];
+    set<int> prime;
+    uf(i, 0, m)
     {
-        int n, num;
-        cin >> n;
-        int len[101] = {};
-        uf(i, 0, n)
-        {
-            cin >> num;
-            len[num]++;
-        }
-        int cont = 0;
-        uf(i, 1, 101)
-        {
-            if (len[i] > 2)
-            {
-                cont += len[i] / 3;
-            }
-        }
-        cln(cont);
+        cin >> num[i];
+        prime.insert(num[i]);
     }
+    ll fact;
+    uf(i, 0, m)
+    {
+        fact = c / num[i];
+        if (num[i] < c && c == fact * num[i] && prime.find(fact) != prime.end())
+        {
+            (num[i] < fact) ? cout << num[i] << ' ' << fact << '\n' : cout << fact << ' ' << num[i] << '\n';
+            return 0;
+        }
+        }
     return 0;
 }
