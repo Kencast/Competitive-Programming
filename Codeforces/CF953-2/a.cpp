@@ -20,6 +20,12 @@ int main()
     cin >> t;
     while (t--)
     {
+        int n;
+        cin >> n;
+        int mayor = 0, num;
+        uf(i, 0, n - 1) cin >> num, mayor = max(mayor, num);
+        cin >> num;
+        cln(num + mayor);
     }
     return 0;
 }

@@ -20,6 +20,23 @@ int main()
     cin >> t;
     while (t--)
     {
+        int n, l, r;
+        cin >> n >> l >> r;
+        int cart[n];
+        uf(i, 0, n) cin >> cart[i];
+        int cont = 0;
+        int ant = 0, bef = 0;
+        ll a = 0;
+        while (bef < n)
+        {
+            a += cart[bef];
+            while (a > r)
+                a -= cart[ant], ant++;
+            if (a >= l && a <= r)
+                a = 0, ant = bef + 1, cont++;
+            bef++;
+        }
+        cln(cont);
     }
     return 0;
 }

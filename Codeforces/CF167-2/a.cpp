@@ -20,6 +20,28 @@ int main()
     cin >> t;
     while (t--)
     {
+        int x, y;
+        cin >> x >> y;
+        int a = 0, b = 0;
+        bool band = false;
+        while (abs(y) < 100)
+        {
+            if (x > a)
+                a++;
+            else if (a > x)
+                a--;
+            if (y > b)
+                b++;
+            else if (y < b)
+                b--;
+            if (a == x && b == y)
+            {
+                band = true;
+                break;
+            }
+            y--;
+        }
+        (band) ? cln("YES") : cln("NO");
     }
     return 0;
 }

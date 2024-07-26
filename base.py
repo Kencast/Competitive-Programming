@@ -1,5 +1,5 @@
 nombre=input()
-destino= 'Codeforces/CF946-3/'+nombre
+destino= ''+nombre
         
 
 with open('template.cpp', 'r') as archivo:

@@ -20,6 +20,14 @@ int main()
     cin >> t;
     while (t--)
     {
+        int a, b, c;
+        cin >> a >> b >> c;
+        int d = INT32_MAX;
+        uf(i, 1, 11)
+        {
+            d = min(d, abs(a - i) + abs(b - i) + abs(c - i));
+        }
+        cln(d);
     }
     return 0;
 }

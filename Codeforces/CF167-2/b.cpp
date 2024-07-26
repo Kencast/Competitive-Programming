@@ -20,6 +20,23 @@ int main()
     cin >> t;
     while (t--)
     {
+        string a, b;
+        cin >> a;
+        cin >> b;
+        if (a == b)
+        {
+            cln(a.size());
+            continue;
+        }
+        int res = 0;
+        int pos;
+        uf(i, 0, b.size())
+        {
+            pos = i;
+            uf(j, 0, a.size()) if (a[j] == b[pos]) pos++;
+            res = max(res, pos - i);
+        }
+        cln(a.size() + b.size() - res);
     }
     return 0;
 }

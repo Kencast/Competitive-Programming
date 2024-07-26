@@ -20,6 +20,20 @@ int main()
     cin >> t;
     while (t--)
     {
+        ll x, y, k;
+        cin >> x >> y >> k;
+        ll p;
+        while (k)
+        {
+            p = min(k, y - x % y);
+            k -= p;
+            x += p;
+            while (x % y == 0)
+                x /= y;
+            if (x == 1)
+                x = 1 + k % (y - 1), k = 0;
+        }
+        cln(x);
     }
     return 0;
 }

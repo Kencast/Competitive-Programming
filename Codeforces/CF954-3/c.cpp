@@ -20,6 +20,25 @@ int main()
     cin >> t;
     while (t--)
     {
+        int n, m;
+        cin >> n >> m;
+        string s;
+        cin >> s;
+        vector<int> ind(m);
+        uf(i, 0, m) cin >> ind[i];
+        string c;
+        cin >> c;
+        sort(ind.begin(), ind.end());
+        sort(c.begin(), c.end());
+        int ci = 0;
+        uf(i, 0, m)
+        {
+            if (i + 1 < m && ind[i] == ind[i + 1])
+                continue;
+            s[ind[i] - 1] = c[ci];
+            ci++;
+        }
+        cln(s);
     }
     return 0;
 }

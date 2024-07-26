@@ -20,6 +20,17 @@ int main()
     cin >> t;
     while (t--)
     {
+        ll n, a, b;
+        cin >> n >> a >> b;
+        ll res = 0, inf;
+        if (b > a)
+        {
+            inf = b - min(b - a, n);
+            res += (b * (b + 1)) / 2 - (inf * (inf + 1)) / 2;
+            n -= min(b - a, n);
+        }
+        res += n * a;
+        cln(res);
     }
     return 0;
 }
