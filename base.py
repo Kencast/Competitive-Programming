@@ -1,5 +1,5 @@
 nombre=input()
-destino= ''+nombre
+destino= 'work/'+nombre
         
 
 with open('template.cpp', 'r') as archivo:
