@@ -90,7 +90,7 @@ void solv() {
 			cin>>pos>>val;
 			st.update(pos, val);
 		}
-		else{ // op=2 query in thr range [l, r)
+		else{
 			int l, r;
 			cin>>l>>r;
 			cout<<st.query(l, r)<<'\n';

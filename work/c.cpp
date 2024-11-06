@@ -21,6 +21,7 @@ using lf = double;
 
 struct segment{
 	vector<ll> tree;
+	vector<int> counter;
 	ll neutralNumber; // operation(a, neutralNumber)=a
 	int n; //Size of the array
 	
@@ -28,10 +29,13 @@ struct segment{
 		n=len;
 		neutralNumber=INT64_MAX;
 		tree.assign(2*n+2, neutralNumber);
+		counter.assign(2*n+2, 1);
 	}
 	
-	ll operation(ll a, ll b){
-		return min(a, b);
+	void operation(int up, int i, int j){
+		if(tree[i]==tree[j]) tree[up]=tree[i], counter[up]=counter[i]+counter[j];
+		else if(tree[i]<tree[j]) tree[up]=tree[i], counter[up]=counter[i];
+		else tree[up]=tree[j], counter[up]=counter[j];
 	}
 
 	void set(int pos, ll val){ //The array number in the leafs
@@ -40,7 +44,7 @@ struct segment{
 	
 	void build(){
 		for(int i=n-1; i>0; i--){ //father=i, left child=2*i, right child=2*i+1
-			tree[i]=operation(tree[i<<1], tree[(i<<1)+1]);
+			operation(i, i<<1, (i<<1)+1);
 		}
 	}
 	
@@ -49,28 +53,30 @@ struct segment{
 		tree[pos]=val;
 		while(pos>1){
 			int up=pos>>1;
-			tree[up]=operation(tree[up<<1], tree[(up<<1)+1]);
+			operation(up, up<<1, (up<<1)+1);
 			pos=up;
 		}
 	}
 	
-	ll query(int l, int r){ // query in the range [l, r)
+	void query(int l, int r){ // query in the range [l, r)
 		l+=n;
 		r+=n;
-		ll res=neutralNumber;
+		pair<ll, ll> res={INT64_MAX, 0};
 		while(l<r){
 			if(l&1){
-				res=operation(res, tree[l]);
+				if(tree[l]<res.first) res.first=tree[l], res.second=counter[l];
+				else if(tree[l]==res.first) res.second+=counter[l];
 				l++;
 			}
 			if(r&1){
 				r--;
-				res=operation(res, tree[r]);
+				if(tree[r]<res.first) res.first=tree[r], res.second=counter[r];
+				else if(tree[r]==res.first) res.second+=counter[r];
 			}
 			l=l>>1;
 			r=r>>1;
 		}
-		return res;
+		cout<<res.first<<' '<<res.second<<'\n';
 	}
 };
 
@@ -90,10 +96,10 @@ void solv() {
 			cin>>pos>>val;
 			st.update(pos, val);
 		}
-		else{ // op=2 query in thr range [l, r)
+		else{
 			int l, r;
 			cin>>l>>r;
-			cout<<st.query(l, r)<<'\n';
+			st.query(l, r);
 		}
 	}
 }
