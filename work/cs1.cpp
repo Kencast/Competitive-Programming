@@ -34,6 +34,47 @@ typedef vec<vec<ii>> WAdj;
 
 void solv()
 {
+  int n, m;
+  cin >> n >> m;
+  vector<vi> adj(n, vi());
+  forn(i, m)
+  {
+    int a, b;
+    cin >> a >> b;
+    a--;
+    b--;
+    adj[a].push_back(b);
+    adj[b].push_back(a);
+  }
+  stack<int> pila;
+  int color[n] = {};
+  forn(i, n)
+  {
+    if (color[i])
+      continue;
+    pila.push(i);
+    color[i] = 1;
+    while (pila.size())
+    {
+      int node = pila.top();
+      pila.pop();
+      for (int h : adj[node])
+      {
+        if (color[h] == color[node])
+        {
+          cln("IMPOSSIBLE");
+          return;
+        }
+        if (!color[h])
+        {
+          pila.push(h);
+          color[h] = (color[node] == 1) ? 2 : 1;
+        }
+      }
+    }
+  }
+  forn(i, n) ce(color[i]);
+  ln;
 }
 
 int main()
@@ -41,7 +82,6 @@ int main()
   ios_base::sync_with_stdio(false);
   cin.tie(0);
   int t = 1;
-  cin >> t;
   while (t--)
     solv();
   return 0;
