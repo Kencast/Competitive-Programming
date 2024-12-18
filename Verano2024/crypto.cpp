@@ -32,49 +32,28 @@ typedef vec<long long> vi;
 typedef vec<vec<int>> Adj;
 typedef vec<vec<ii>> WAdj;
 
+// Problem: https://open.kattis.com/problems/crypto
+
 void solv()
 {
-  int n, m;
-  cin >> n >> m;
-  vector<vi> adj(n, vi());
-  forn(i, m)
+  lld n;
+  cin >> n;
+  lld fact = 2;
+  // In res the prime number with the greatest pot(frecuency)
+  lld res = n, pot = 1, cont = 0;
+  while (fact * fact <= n)
   {
-    int a, b;
-    cin >> a >> b;
-    a--;
-    b--;
-    adj[a].push_back(b);
-    adj[b].push_back(a);
-  }
-  stack<int> pila;
-  int color[n] = {};
-  forn(i, n)
-  {
-    if (color[i])
-      continue;
-    pila.push(i);
-    color[i] = 1;
-    while (pila.size())
+    while (n % fact == 0)
+      cont++, n /= fact;
+    if (cont > pot || (cont == pot && fact < res))
     {
-      int node = pila.top();
-      pila.pop();
-      for (int h : adj[node])
-      {
-        if (color[h] == color[node])
-        {
-          cln("IMPOSSIBLE");
-          return;
-        }
-        if (!color[h])
-        {
-          pila.push(h);
-          color[h] = (color[node] == 1) ? 2 : 1;
-        }
-      }
+      res = fact;
+      pot = cont;
     }
+    cont = 0;
+    fact++;
   }
-  forn(i, n) ce(color[i]);
-  ln;
+  cln(res);
 }
 
 int main()
