@@ -32,32 +32,42 @@ typedef vec<long long> vi;
 typedef vec<vec<int>> Adj;
 typedef vec<vec<ii>> WAdj;
 
+int n;
+
+int nt(int a)
+{
+    if (a + 1 == n)
+        return 0;
+    return a + 1;
+}
+
+int bef(int a)
+{
+    if (a - 1 < 0)
+        return n - 1;
+    return a - 1;
+}
 void solv()
 {
-  int n;
-  cin >> n;
-  list<int> disp;
-  int num;
-  forn(i, 3 * n) cin >> num, disp.push_back(num);
-  disp.sort();
-  lld res = 0;
-  while (disp.size())
-  {
-    disp.pop_back();
-    res += disp.back();
-    disp.pop_back();
-    disp.pop_front();
-  }
-  cln(res);
+    int x, y;
+    cin >> n >> x >> y;
+    x--;
+    y--;
+    int c[n];
+    forn(i, n) c[(x + i) % n] = i % 2;
+    if (n % 2 || c[x] == c[y])
+        c[x] = 2;
+    forn(i, n) ce(c[i]);
+    ln;
 }
 
 int main()
 {
-  ios_base::sync_with_stdio(false);
-  cin.tie(0);
-  int t = 1;
-  cin >> t;
-  while (t--)
-    solv();
-  return 0;
+    ios_base::sync_with_stdio(false);
+    cin.tie(0);
+    int t = 1;
+    cin >> t;
+    while (t--)
+        solv();
+    return 0;
 }

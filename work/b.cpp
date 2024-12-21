@@ -34,38 +34,40 @@ typedef vec<vec<ii>> WAdj;
 
 void solv()
 {
-  int n;
-  cin >> n;
-  lld num[n];
-  forn(i, n) cin >> num[i];
-  lld pot = 1 << 24;
-  lld res = 0, act, ant = 0;
-  while (pot)
-  {
-    act = 0;
-    map<lld, ii> mapa;
+    int n;
+    cin >> n;
+    string s;
+    cin >> s;
+    int p = 0, ps = -1;
     forn(i, n)
     {
-      ii aj = mapa[(-num[i] % pot + pot) % pot];
-      aj.first++;
-      aj.second += num[i];
-      mapa[(-num[i] % pot + pot) % pot] = aj;
-      ii ai = mapa[num[i] % pot];
-      act += num[i] * ai.first + ai.second;
+        if (s[i] == 'p')
+            p++;
+        else if (s[i] == 's' && p)
+        {
+            cln("NO");
+            return;
+        }
     }
-    res += (act - ant) / pot;
-    ant = act;
-    pot >>= 1;
-  }
-  cln(res);
+    forn(i, n) if (s[i] == 's') ps = i;
+    if (ps == -1 || !p)
+    {
+        cln("YES");
+        return;
+    }
+    if (ps && (p > 1 || s[n - 1] != 'p'))
+        cln("NO");
+    else
+        cln("YES");
 }
 
 int main()
 {
-  ios_base::sync_with_stdio(false);
-  cin.tie(0);
-  int t = 1;
-  while (t--)
-    solv();
-  return 0;
+    ios_base::sync_with_stdio(false);
+    cin.tie(0);
+    int t = 1;
+    cin >> t;
+    while (t--)
+        solv();
+    return 0;
 }

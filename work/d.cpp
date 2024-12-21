@@ -32,72 +32,56 @@ typedef vec<long long> vi;
 typedef vec<vec<int>> Adj;
 typedef vec<vec<ii>> WAdj;
 
+int n, m;
+lld k;
+lld dp[200][200][201];
+lld mat[200][200];
+
+lld solve(int i, int j, int x)
+{
+  if (i == n || j == m)
+    return 1e15;
+  if (dp[i][j][x] > -1)
+    return dp[i][j][x];
+  lld res = INT64_MAX;
+  lld c1, c2;
+  if (i == n - 1 && j == m - 1)
+    c1 = 0, c2 = 0;
+  else
+  {
+    c1 = solve(i + 1, j, m);
+    if (x != m)
+      c2 = solve(i, j + 1, x);
+  }
+  if (x == m)
+  {
+    forn(p, m)
+    {
+      if (i == n - 1 && j == m - 1)
+        c2 = 0;
+      else
+        c2 = solve(i, j + 1, p);
+      res = min(res, mat[i][(p + j) % m] + p * k + min(c1, c2));
+    }
+  }
+  else
+    res = min(res, mat[i][(x + j) % m] + min(c1, c2));
+  return dp[i][j][x] = res;
+}
+
+lld solve2()
+{
+}
+
 void solv()
 {
-  int n;
-  cin >> n;
-  int freq[n] = {};
-  list<int> bob;
-  vi dist(n, -1);
-  set<int> st;
+  cin >> n >> m >> k;
+  forn(i, n) forn(j, m) cin >> mat[i][j];
   forn(i, n)
   {
-    int num;
-    cin >> num;
-    num--;
-    freq[num]++;
-    st.insert(num);
+    forn(j, m) forn(x, m + 1) dp[i][j][x] = -1;
   }
-  int res = 0, turn = 0, ali = 0;
-  for (auto a : st)
-  {
-    dist[a] = ali - freq[a];
-    if (dist[a] >= 0)
-      bob.push_back(a);
-    ali++;
-  }
-  auto cmp = [&](int i, int j)
-  {
-    return freq[i] < freq[j];
-  };
-  bob.sort(cmp);
-  ali = 0;
-  forn(i, n)
-  {
-    if (!turn)
-    {
-      while (ali < n && !freq[ali])
-        ali++;
-      if (ali == n)
-        break;
-      res++;
-      int aux = ali, pasos = 0;
-      while (aux < n)
-      {
-        if (!freq[aux])
-        {
-          aux++;
-          continue;
-        }
-        dist[aux] = pasos - freq[aux];
-        aux++;
-        pasos++;
-      }
-      // ce("Alice:"), cln(ali + 1);
-      freq[ali] = 0;
-    }
-    else
-    {
-      while (bob.size() && (!freq[bob.front()] || dist[bob.front()] < 0))
-        bob.pop_front();
-      if (!bob.size())
-        break;
-      // ce("Bob:"), cln(bob.front() + 1);
-      freq[bob.front()]--;
-    }
-    turn ^= 1;
-  }
-  cln(res);
+  cln(solve(0, 0, m));
 }
 
 int main()
