@@ -10,7 +10,7 @@ using namespace std;
 
 using llu = unsigned long long;
 using lld = long long;
-using lf = double;
+using lf = double long;
 
 #define forr(i, a, b) for (int i = (a); i < (b); i++)
 #define forn(i, n) forr(i, 0, n)
@@ -34,32 +34,42 @@ typedef vec<vec<ii>> WAdj;
 
 void solv()
 {
-  int h, w, x, y;
-  cin >> h >> w >> x >> y;
-  x--;
-  y--;
-  char mat[h][w];
-  forn(i, h) forn(j, w) cin >> mat[i][j];
-  string t;
-  cin >> t;
-  bool vis[h][w] = {};
-  map<char, ii> mapa;
-  mapa['U'] = {-1, 0};
-  mapa['D'] = {1, 0};
-  mapa['L'] = {0, -1};
-  mapa['R'] = {0, 1};
-  int cont = 0;
-  for (char a : t)
+  int n;
+  cin >> n;
+  lf x[n];
+  lf y[n];
+  lf may = 0;
+  forn(i, n)
   {
-    ii dir = mapa[a];
-    x += dir.first;
-    y += dir.second;
-    if (mat[x][y] == '#')
-      x -= dir.first, y -= dir.second;
-    else if (mat[x][y] == '@' && !vis[x][y])
-      cont++, vis[x][y] = true;
+    cin >> x[i];
+    cin >> y[i];
+    may = max(may, y[i]);
   }
-  ce(x + 1), ce(y + 1), cln(cont);
+  auto eval = [&](lf h)
+  {
+    forr(i, 1, n)
+    {
+      if ((y[i - 1] - h) * x[i] >= ((y[i] - h) * x[i - 1]))
+        return false;
+    }
+    return true;
+  };
+  if (eval(0))
+  {
+    cln(-1);
+    return;
+  }
+  lf inf = 0.0, sup = may + 1, m;
+  forn(it, 61)
+  {
+    m = (inf + sup) / 2.0;
+    if (eval(m))
+      sup = m;
+    else
+      inf = m;
+  }
+  cout << fixed << setprecision(15);
+  cout << inf << endl;
 }
 
 int main()

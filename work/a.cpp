@@ -34,38 +34,23 @@ typedef vec<vec<ii>> WAdj;
 
 void solv()
 {
-    int n;
-    cin >> n;
-    int num[n];
-    forn(i, n) cin >> num[i];
-    int l = 0, r = n - 1;
-    while (l < n && num[l] == 0)
-        l++;
-    while (r >= 0 && num[r] == 0)
-        r--;
-    if (l == n)
-    {
-        cln(0);
-        return;
-    }
-    forr(i, l, r + 1)
-    {
-        if (num[i] == 0)
-        {
-            cln(2);
-            return;
-        }
-    }
-    cln(1);
+  vi num(3);
+  forn(i, 3) cin >> num[i];
+  sort(all(num));
+  if (num[0] == num[2])
+    cln("Yes");
+  else if (num[0] + num[1] == num[2])
+    cln("Yes");
+  else
+    cln("No");
 }
 
 int main()
 {
-    ios_base::sync_with_stdio(false);
-    cin.tie(0);
-    int t = 1;
-    cin >> t;
-    while (t--)
-        solv();
-    return 0;
+  ios_base::sync_with_stdio(false);
+  cin.tie(0);
+  int t = 1;
+  while (t--)
+    solv();
+  return 0;
 }

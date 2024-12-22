@@ -34,32 +34,33 @@ typedef vec<vec<ii>> WAdj;
 
 void solv()
 {
-  int h, w, x, y;
-  cin >> h >> w >> x >> y;
-  x--;
-  y--;
-  char mat[h][w];
-  forn(i, h) forn(j, w) cin >> mat[i][j];
-  string t;
-  cin >> t;
-  bool vis[h][w] = {};
-  map<char, ii> mapa;
-  mapa['U'] = {-1, 0};
-  mapa['D'] = {1, 0};
-  mapa['L'] = {0, -1};
-  mapa['R'] = {0, 1};
-  int cont = 0;
-  for (char a : t)
+  int n;
+  cin >> n;
+  vi adj[n];
+  int deg[n] = {};
+  forn(i, n - 1)
   {
-    ii dir = mapa[a];
-    x += dir.first;
-    y += dir.second;
-    if (mat[x][y] == '#')
-      x -= dir.first, y -= dir.second;
-    else if (mat[x][y] == '@' && !vis[x][y])
-      cont++, vis[x][y] = true;
+    int a, b;
+    cin >> a >> b;
+    a--;
+    b--;
+    adj[a].push_back(b);
+    adj[b].push_back(a);
+    deg[a]++;
+    deg[b]++;
   }
-  ce(x + 1), ce(y + 1), cln(cont);
+  lld res = n;
+  auto eval = [&](int node)
+  {
+    int tam = adj[node].size();
+    vi v;
+    for (auto e : adj[node])
+      v.push_back(deg[e]);
+    sort(all(v));
+    forn(i, tam) res = min(res, n - (tam - i) * v[i] - 1);
+  };
+  forn(i, n) eval(i);
+  cln(res);
 }
 
 int main()
