@@ -1,7 +1,7 @@
 set -e
-g++ e.cpp -o e
+g++ c.cpp -o e
 g++ gen.cpp -o gen
-g++ ch.cpp -o ch
+g++ p.cpp -o ch
 for((i = 5; ; ++i)); do
     ./gen $i > in
     ./e < in > myAnswer
