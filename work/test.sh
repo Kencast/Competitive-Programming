@@ -2,7 +2,7 @@ set -e
 g++ c.cpp -o e
 g++ gen.cpp -o gen
 g++ p.cpp -o ch
-for((i = 5; ; ++i)); do
+for((i = 100; ; ++i)); do
     ./gen $i > in
     ./e < in > myAnswer
     ./ch < in > correctAnswer
