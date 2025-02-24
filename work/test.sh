@@ -1,8 +1,8 @@
 set -e
-g++ a.cpp -o e
+g++ k.cpp -o e
 g++ gen.cpp -o gen
 g++ p.cpp -o ch
-for((i = 1; ; ++i)); do
+for((i = 100; ; ++i)); do
     ./gen $i > in
     ./e < in > myAnswer
     ./ch < in > correctAnswer

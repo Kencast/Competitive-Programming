@@ -16,21 +16,13 @@ using lf = double;
 #define forn(i, n) forr(i, 0, n)
 #define dforn(i, n) for (int i = (n - 1); i >= 0; i--)
 #define vec vector
-#define pr pair
-#define fs first
-#define sd second
-#define ins insert
-#define ers erase
-#define pb push_back
 #define all(n) begin(n), end(n)
 #define cln(a) cout << a << '\n'
 #define ce(a) cout << a << ' '
 #define ln cout << '\n'
 
-typedef pr<long long, long long> ii;
+typedef pair<long long, long long> ii;
 typedef vec<long long> vi;
-typedef vec<vec<int>> Adj;
-typedef vec<vec<ii>> WAdj;
 
 void solv()
 {
