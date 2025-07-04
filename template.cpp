@@ -20,6 +20,7 @@ using lf = double;
 #define cln(a) cout << a << '\n'
 #define ce(a) cout << a << ' '
 #define ln cout << '\n'
+#define sz(x) (int)(x.size())
 
 typedef pair<long long, long long> ii;
 typedef vec<long long> vi;

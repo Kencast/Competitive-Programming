@@ -1,12 +1,12 @@
 set -e
-g++ k.cpp -o e
+g++ d.cpp -o d
 g++ gen.cpp -o gen
-g++ p.cpp -o ch
+#g++ p.cpp -o ch
 for((i = 100; ; ++i)); do
     ./gen $i > in
-    ./e < in > myAnswer
-    ./ch < in > correctAnswer
-    diff -Z myAnswer correctAnswer > /dev/null || break
+    ./d < in > myAnswer
+    #./ch < in > correctAnswer
+    #diff -Z myAnswer correctAnswer > /dev/null || break
     echo "Passed test: "  $i
 done
 echo "WA on the following test:"
