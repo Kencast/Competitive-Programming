@@ -8,19 +8,17 @@ using namespace std;
 #define debug(ARG) 42
 #endif
 
-using llu = unsigned long long;
 using lld = long long;
 using lf = double;
 
-#define forr(i, a, b) for (int i = (a); i < (b); i++)
-#define forn(i, n) forr(i, 0, n)
-#define dforn(i, n) for (int i = (n - 1); i >= 0; i--)
+#define forn(i, n) for(int i=0; i<n; i++)
+#define dforn(i, n) for (int i=(n)-1; i >= 0; i--)
 #define vec vector
-#define all(n) begin(n), end(n)
+#define all(n) begin(n),end(n)
 #define cln(a) cout << a << '\n'
 #define ce(a) cout << a << ' '
 #define ln cout << '\n'
-#define sz(x) (int)(x.size())
+#define sz(x) (int)(x).size()
 
 typedef pair<long long, long long> ii;
 typedef vec<long long> vi;
